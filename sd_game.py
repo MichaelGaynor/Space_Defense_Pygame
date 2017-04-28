@@ -33,7 +33,7 @@ def run_game():
 
   while 1:
     tick += 1
-    if tick % 100 == 0:
+    if tick % 50 == 0:
       bogies.add(Bogey(screen))
 
     screen.fill(background_color)
@@ -55,8 +55,8 @@ def run_game():
       list1 = len(bogies.sprites())
       missile.draw_missile()
       if list1 > 0:
-        target1 = bogies.sprites()[0]
-        missile.update(target1)
+        # target1 = bogies.sprites()[0]
+        missile.update(bogies)
       elif list1 <= 0:
         missiles.empty()
 

@@ -8,7 +8,7 @@ class Bogey(Sprite):
     super(Bogey,self).__init__()
     self.image = pygame.image.load("./images/EnemyShip.png")
     self.image = pygame.transform.scale(self.image,[20,20])
-    self.speed = 2
+    self.speed = 1
     self.screen = screen
     self.x = 1000
     self.y = randint(0,800)

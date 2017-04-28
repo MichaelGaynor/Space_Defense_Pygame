@@ -33,9 +33,17 @@ class Missile(Projectile):
   def __init__(self,screen,turret):
     super(Missile,self).__init__(screen,turret)
 
-  def update(self,target):
-    dx = self.x - target.x
-    dy = self.y - target.y
+  def update(self,bogies):
+    closest_bogey_dist = 5000
+    for target in bogies:
+      dx = self.x - target.x
+      dy = self.y - target.y
+      dist = hypot(dx,dy)
+      if dist < closest_bogey_dist:
+        closest_bogey_dist = dist
+        final_target = target
+    dx = self.x - final_target.x
+    dy = self.y - final_target.y
     dist = hypot(dx,dy)
     dx = dx/dist
     dy = dy/dist
@@ -46,6 +54,5 @@ class Missile(Projectile):
 
   def draw_missile(self):
     pygame.draw.rect(self.screen,self.color,self.rect)
-
 
 
