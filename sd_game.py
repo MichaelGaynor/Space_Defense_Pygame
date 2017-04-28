@@ -26,7 +26,6 @@ def run_game():
   turrets = Group()
   bogey = Bogey(screen)
   bogies = Group()
-  # target1 = bogies.sprites()[]
   bogies.add(bogey)
   missiles = Group()
 
@@ -34,7 +33,7 @@ def run_game():
 
   while 1:
     tick += 1
-    if tick % 50 == 0:
+    if tick % 100 == 0:
       bogies.add(Bogey(screen))
 
     screen.fill(background_color)
@@ -54,10 +53,11 @@ def run_game():
 
     for missile in missiles:
       list1 = len(bogies.sprites())
-      missile.draw_projectile()
+      missile.draw_missile()
       if list1 > 0:
-        missile.update(bogies.sprites()[-1])
-      else:
+        target1 = bogies.sprites()[0]
+        missile.update(target1)
+      elif list1 <= 0:
         missiles.empty()
 
 # dealing with collisions
