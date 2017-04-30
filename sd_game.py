@@ -3,6 +3,7 @@ import pygame
 # and from our own files
 from player import Player
 from home_base import HomeBase
+from turret import AutoTurret
 from turret import Turret
 from game_functions import check_events
 from bogey import Bogey
@@ -28,10 +29,13 @@ def run_game():
   home_bases.add(home_base)
   turret_image = "./images/TurretStation.png"
   turrets = Group()
+  auto_turret_image = "./images/AutoTurret.png"
+  auto_turrets = Group()
   bogey = Bogey(screen)
   bogies = Group()
   bogies.add(bogey)
   missiles = Group()
+  bullets = Group()
 
   tick = 0
 
@@ -42,13 +46,17 @@ def run_game():
 
     screen.fill(background_color)
 
-    check_events(screen,player,turrets,turret_image,missiles)
+    check_events(screen,player,turrets,turret_image,missiles,auto_turrets,auto_turret_image,bullets)
 # drawing enemies, missiles, turrets, and the player
     for player in player_group:
       player.draw_me()
 
     for home_base in home_bases:
       home_base.draw_me()
+
+    for auto_turret in auto_turrets:
+      auto_turret.draw_me()
+      auto_turret.open_fire(screen,bogies,bullets,tick)
 
     for turret in turrets:
       turret.draw_me()
@@ -67,10 +75,15 @@ def run_game():
       elif list1 <= 0:
         missiles.empty()
 
+    for bullet in bullets:
+      bullet.draw_bullet()
+      bullet.update(bogies)
+
 # dealing with collisions
     player_died = groupcollide(player_group,bogies,True,False)
     you_lose = groupcollide(home_bases,bogies,True,True)
     missile_hit = groupcollide(missiles,bogies,True,True)
+    bullet_hit = groupcollide(bullets,bogies,True,True)
 
     pygame.display.flip()
 
