@@ -10,7 +10,7 @@ class Projectile(Sprite):
     self.rect.centerx = turret[0]
     self.rect.top = turret[1]
     self.color = (255,255,0)
-    self.speed = 5
+    self.speed = 15
     self.y = self.rect.y
     self.x = self.rect.x
 

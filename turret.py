@@ -23,7 +23,7 @@ class Turret(Sprite):
 
   def open_fire(self,screen,bogies,missiles,tick):
     # my_bulk = pygame.sprite.collide_rect_ratio(10.0)
-    baddie_list = pygame.sprite.spritecollide(self,bogies,False,pygame.sprite.collide_rect_ratio(3.0))
+    baddie_list = pygame.sprite.spritecollide(self,bogies,False,pygame.sprite.collide_rect_ratio(5.0))
     new_missile = Missile(screen,[self.x,self.y])
     if tick % 30 == 0 and baddie_list:
       # new_missile = Missile(screen,[self.x,self.y])
@@ -36,7 +36,7 @@ class AutoTurret(Turret):
     super(AutoTurret,self).__init__(screen)
 
   def open_fire(self,screen,bogies,bullets):
-    baddie_list = pygame.sprite.spritecollide(self,bogies,False,pygame.sprite.collide_rect_ratio(100.0))
+    baddie_list = pygame.sprite.spritecollide(self,bogies,False,pygame.sprite.collide_rect_ratio(3.0))
     new_bullet = Bullet(screen,[self.x,self.y])
     if baddie_list:
       bullets.add(new_bullet)
