@@ -39,6 +39,11 @@ def run_game():
 
   tick = 0
 
+  pygame.mixer.music.load("sounds/bensound-funkyelement.wav")
+  pygame.mixer.music.play(-1)
+
+
+
   while 1:
     tick += 1
     if tick % 10 == 0:
@@ -48,12 +53,13 @@ def run_game():
 
     check_events(screen,player,turrets,turret_image,missiles,auto_turrets,auto_turret_image,bullets)
 # drawing enemies, missiles, turrets, and the player
-    for player in player_group:
-      player.draw_me()
 
     for home_base in home_bases:
       home_base.draw_me()
 
+    for player in player_group:
+      player.draw_me()
+      
     for auto_turret in auto_turrets:
       auto_turret.draw_me()
       auto_turret.open_fire(screen,bogies,bullets,tick)
@@ -64,7 +70,9 @@ def run_game():
 
     for bogey in bogies:
       bogey.draw_me()
-      bogey.update_me(home_base)
+      bogey.update_me(home_base,home_bases)
+      if bogey.update_me(home_base,home_bases) <= 5:
+        bogies.remove(bogey)
 
     for missile in missiles:
       list1 = len(bogies.sprites())
@@ -80,10 +88,20 @@ def run_game():
       bullet.update(bogies)
 
 # dealing with collisions
+    font = pygame.font.Font(None, 50)
+    if len(home_bases.sprites()) != 1:
+      loss_text = font.render("You lose. Earth has fallen. Good job. Some hero you are.", True, (255,0,255))
+      screen.blit(loss_text, [40,40])
+      pygame.mixer.music.load("sounds/bensound-ofeliasdream.wav")
+      # pygame.mixer.music.play(-1)
+
+
     player_died = groupcollide(player_group,bogies,True,False)
-    you_lose = groupcollide(home_bases,bogies,True,True)
+    you_lose = groupcollide(home_bases,bogies,True,False)
     missile_hit = groupcollide(missiles,bogies,True,True)
     bullet_hit = groupcollide(bullets,bogies,True,True)
+    turret_hit = groupcollide(turrets,bogies,True,True)
+    auto_turret_hit = groupcollide(auto_turrets,bogies,True,True)
 
     pygame.display.flip()
 

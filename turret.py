@@ -26,7 +26,7 @@ class Turret(Sprite):
     # my_bulk = pygame.sprite.collide_rect_ratio(10.0)
     baddie_list = pygame.sprite.spritecollide(self,bogies,False,pygame.sprite.collide_rect_ratio(5.0))
     new_missile = Missile(screen,[self.x,self.y])
-    if tick % 30 == 0 and baddie_list:
+    if tick % 60 == 0 and baddie_list:
       # new_missile = Missile(screen,[self.x,self.y])
       missiles.add(new_missile)
       # new_missile.update(baddie_list[0])

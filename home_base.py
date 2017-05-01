@@ -13,4 +13,6 @@ class HomeBase(Sprite):
 
 
   def draw_me(self):
+    self.rect.left = self.x
+    self.rect.top = self.y 
     self.screen.blit(self.image,[self.x,self.y])
