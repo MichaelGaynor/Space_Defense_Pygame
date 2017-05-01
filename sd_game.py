@@ -59,7 +59,7 @@ def run_game():
 
     for player in player_group:
       player.draw_me()
-      
+
     for auto_turret in auto_turrets:
       auto_turret.draw_me()
       auto_turret.open_fire(screen,bogies,bullets,tick)
@@ -92,8 +92,6 @@ def run_game():
     if len(home_bases.sprites()) != 1:
       loss_text = font.render("You lose. Earth has fallen. Good job. Some hero you are.", True, (255,0,255))
       screen.blit(loss_text, [40,40])
-      pygame.mixer.music.load("sounds/bensound-ofeliasdream.wav")
-      # pygame.mixer.music.play(-1)
 
 
     player_died = groupcollide(player_group,bogies,True,False)
