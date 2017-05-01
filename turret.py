@@ -51,7 +51,7 @@ class AutoTurret(Sprite):
     self.screen.blit(self.image,[self.x,self.y])
 
   def open_fire(self,screen,bogies,bullets,tick):
-    baddie_list = pygame.sprite.spritecollide(self,bogies,False,pygame.sprite.collide_rect_ratio(3.0))
+    baddie_list = pygame.sprite.spritecollide(self,bogies,False,pygame.sprite.collide_rect_ratio(5.0))
     new_bullet = Bullet(screen,[self.x,self.y])
     if baddie_list:
       bullets.add(new_bullet)

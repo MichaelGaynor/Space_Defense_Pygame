@@ -71,8 +71,14 @@ def run_game():
     for bogey in bogies:
       bogey.draw_me()
       bogey.update_me(home_base,home_bases)
-      if bogey.update_me(home_base,home_bases) <= 5:
+      if bogey.update_me(home_base,home_bases) <= 20:
         bogies.remove(bogey)
+      if tick > 600:
+        bogey.speed = 4
+      if tick > 1200:
+        bogey.speed = 8
+      if tick > 1800:
+        bogey.speed = 16
 
     for missile in missiles:
       list1 = len(bogies.sprites())
@@ -92,6 +98,9 @@ def run_game():
     if len(home_bases.sprites()) != 1:
       loss_text = font.render("You lose. Earth has fallen. Good job. Some hero you are.", True, (255,0,255))
       screen.blit(loss_text, [40,40])
+    else:
+      turrets_text = font.render("You get 8 missile turrets [S] and 6 auto turrets [A].", True, (0,255,255))
+      screen.blit(turrets_text, [40,40])
 
 
     player_died = groupcollide(player_group,bogies,True,False)
